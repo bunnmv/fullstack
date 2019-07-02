@@ -1,0 +1,17 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+  app:
+    env_file:
+      - env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/code
+#    ports:
+#      - "3000:3000"
+    depends_on:
+      - db

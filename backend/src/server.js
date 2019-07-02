@@ -22,4 +22,4 @@ app.use(require("./routes"));
 //     res.sendFile(path.join(__dirname, 'build', 'index.html'));
 // });
 
-server.listen(4000);
+server.listen(process.env.SERVER_PORT || 4000);
