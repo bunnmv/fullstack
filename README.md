@@ -20,8 +20,8 @@ Clone, or download the project directory.
         
 Make sure you have Docker and Docker Compose installed. After, move to the project backed directory (where the docker-compose.yml is) and run docker compose up. That's it! You should see in the console that two docker containers are running, bothe the backend and db. 
 
-Node.js       -> PORT      - 3000
-Postgress SQL -> PORT      - 5432
+- Node.js       -> PORT      - 3000
+- Postgress SQL -> PORT      - 5432
 
 # TRY IT!
 Visit http://localhost:3000/ and you should see the application running. Ready to play around!!
