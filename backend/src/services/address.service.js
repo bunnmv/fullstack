@@ -10,8 +10,10 @@ AddressService.create = async(req, res, next)  => {
     try {
         // data from request params
         const newAddress = req.body.address;
+        const user = req.params.user;
+
         if(Model.validate(newAddress)) {
-            await addressController.create(newAddress);
+            await addressController.create(user,newAddress);
             res.json({ success: true });
         } else {
             res.json({ success: false, errors: Model.errors(Model.validate.errors) });
@@ -26,7 +28,7 @@ AddressService.remove = async(req, res, next)  => {
     try {
 
         const id = parseInt(req.params.id); // address id from route params
-        const user = parseInt(req.params.id); // user id from route params
+        const user = parseInt(req.params.user); // user id from route params
         const userDB = await userController.get(user);
 
         if(userDB) {// verify if the user really exists
@@ -49,14 +51,19 @@ AddressService.edit = async(req, res, next)  => {
     try {
         const addressEditions = req.body.address; // address object from request body
         const id = parseInt(req.params.id); // address id from route params
-        const addressDB = await addressController.get(id);
-
-        if(addressDB) { // verify if the address really exists
-            if(Model.validate(addressEditions)){
-                await addressController.edit(id, addressEditions);
-                res.json({ success: true });
+        const user = parseInt(req.params.user); // user id from route params
+        const userDB = await userController.get(user);
+        if(userDB) {// verify if the user really exists
+            const addressDB = await addressController.get(id);
+            if (addressDB) { // verify if the address really exists
+                if (Model.validate(addressEditions)) {
+                    await addressController.edit(id, addressEditions);
+                    res.json({success: true});
+                } else {
+                    res.json({success: false, errors: Model.errors(Model.validate.errors)});
+                }
             } else {
-                res.json({ success: false, errors: Model.errors(Model.validate.errors) });
+                res.sendStatus(404); // Address not found
             }
         } else {
             res.sendStatus(404); // User not found

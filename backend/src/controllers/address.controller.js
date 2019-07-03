@@ -43,7 +43,7 @@ const createAddress = async(user,newAddress) => {
 
 // Mutate database deleting address that matches the respective ID
 const removeAddress = async(id) => {
-    const removeAddress = 'DELETE FROM address" WHERE id = $1';
+    const removeAddress = 'DELETE FROM address WHERE id = $1';
     try {
         const { rows } = await db.query(removeAddress,[id]);
         return rows ;
