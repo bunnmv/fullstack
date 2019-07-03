@@ -3,13 +3,9 @@ const Ajv = require('ajv');
 const ajv = new Ajv({allErrors: true});
 
 const properties = {
-    mobile: {
+    number: {
         type: "string",
-        minLength: 9
-    },
-    home: {
-        type: "string",
-        minLength: 9
+        minLength: 8
     }
 };
 
