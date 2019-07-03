@@ -3,6 +3,8 @@ version: '3'
 services:
   db:
     image: postgres
+    ports:
+      - "5432:5432" # specify port forewarding
   app:
     env_file:
       - env
@@ -10,8 +12,12 @@ services:
       context: .
       dockerfile: Dockerfile
     volumes:
-      - .:/code
-#    ports:
-#      - "4000:4000"
+      - .:/usr/src/
+    working_dir: /usr/src/
+    command: npm run dev
+    links:
+      - db
+    ports:
+      - "4000:4000" # specify port forewarding
     depends_on:
       - db

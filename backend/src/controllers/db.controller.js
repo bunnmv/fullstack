@@ -1,10 +1,10 @@
 // Database connection and variables controller
 const Pool = require('pg').Pool;
 const pool = new Pool({
-    user: process.env.DB_USER,
-    host: process.env.DB_URL,
-    database: process.env.DB_NAME,
-    password: process.env.DB_PASSWORD,
+    host: process.env.DATABASE_HOST,
+    database: process.env.DATABASE_NAME,
+    user: process.env.DATABASE_USER,
+    password: process.env.DATABASE_PASSWORD,
     port:5432,
     connectionTimeoutMillis: 10000,
 });

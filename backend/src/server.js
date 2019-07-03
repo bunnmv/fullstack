@@ -2,7 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const app = express();
 const http = require('http');
-const db = require('../controller/db.controller');
+const db = require('./controllers/db.controller');
 
 
 //middleware to enable CORS. Allow other domains to make requests
@@ -32,7 +32,7 @@ let server;
 db.query('SELECT NOW()', (err, res) => {
     if(res){
 
-        server = http.createServer(app).listen(4000, function (e) {
+        server = http.createServer(app).listen(process.env.SERVER_PORT || 4000, function (e) {
             console.log(`● WEB SERVER STARTED on port 4000`);
         });
         server.on('error', (e) => {
