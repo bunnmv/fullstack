@@ -61,9 +61,9 @@ const getUserByCPF =  async (id) => {
 // Mutate database inserting new user
 const createUser = async(newUser) => {
     const dateNow = new Date();
-    const newUserQuery = 'INSERT INTO "user" (name, phone_number, email, birth_date, cpf, date_added) VALUES ($1, $2, $3, $4, $5, $6) returning id';
+    const newUserQuery = 'INSERT INTO "user" (name, email, birth_date, cpf, date_added) VALUES ($1, $2, $3, $4, $5) returning id';
     try {
-        const { rows } = await db.query(newUserQuery,[newUser.name,newUser.phone_number,newUser.email,newUser.birth_date,newUser.cpf,dateNow]);
+        const { rows } = await db.query(newUserQuery,[newUser.name,newUser.email,newUser.birth_date,newUser.cpf,dateNow]);
         return rows ;
     } catch(error) {
         throw error;
@@ -84,9 +84,9 @@ const removeUser = async(id) => {
 // Mutate database updating user that matches the respective ID
 const editUser = async(id, userEditions) => {
 
-    const editUserQuery = 'UPDATE "user" SET name = $1, phone_number = $2, email = $3, birth_date = $4, cpf = $5 WHERE id = $6';
+    const editUserQuery = 'UPDATE "user" SET name = $1, email = $2, birth_date = $3, cpf = $4 WHERE id = $5';
     try {
-        const { rows } = await db.query(editUserQuery,[userEditions.username,userEditions.phone_number,userEditions.email,userEditions.birth_date,userEditions.cpf, id]);
+        const { rows } = await db.query(editUserQuery,[userEditions.username,userEditions.email,userEditions.birth_date,userEditions.cpf, id]);
         return rows ;
     } catch(error) {
         throw error;

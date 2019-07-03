@@ -7,10 +7,6 @@ const properties = {
         type: "string",
         minLength: 4
     },
-    phone_number: {
-        type: "string",
-        minLength: 8
-    },
     email: {
         format: "email",
         minLength: 6
@@ -27,7 +23,7 @@ const properties = {
 
 const schema = {
     type: "object",
-    required: [ "name", "phone_number","email","cpf","birth_date"],
+    required: [ "name","email","cpf","birth_date"],
     properties: properties
 };
 
