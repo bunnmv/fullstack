@@ -5,7 +5,7 @@ const ajv = new Ajv({allErrors: true});
 const properties = {
     name: {
         type: "string",
-        minLength: 3
+        minLength: 4
     },
     phone_number: {
         type: "string",
@@ -13,7 +13,7 @@ const properties = {
     },
     email: {
         format: "email",
-        minLength: 4
+        minLength: 6
     },
     cpf: {
         type: "string",
