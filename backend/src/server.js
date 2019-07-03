@@ -10,7 +10,6 @@ app.use(cors());
 
 const path = require('path');
 
-// const server = require('http').Server(app);
 
 app.use(express.json());
 

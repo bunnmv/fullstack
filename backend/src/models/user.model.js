@@ -27,7 +27,7 @@ const properties = {
 
 const schema = {
     type: "object",
-    required: [ "username", "phone_number","email"],
+    required: [ "name", "phone_number","email","cpf","birth_date"],
     properties: properties
 };
 

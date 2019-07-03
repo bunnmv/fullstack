@@ -1,7 +1,6 @@
 // User service to match routes and SQL queries.
 // REST API
-
-const userController = require('../controller/user.controller');
+const userController = require('../controllers/user.controller');
 
 const UserService = {};
 
