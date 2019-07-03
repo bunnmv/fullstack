@@ -8,16 +8,16 @@ const properties = {
         minLength: 4
     },
     number: {
-        format: "string",
+        type: "string"
     },
     state: {
-        type: "string",
+        type: "string"
     },
     city: {
-        type: "string",
+        type: "string"
     },
     neighborhood: {
-        type: "string",
+        type: "string"
     },
     zip_code: {
         type: "string",

@@ -121,7 +121,7 @@ routes.post('/user/:user/address/remove/:id', addressService.remove);
  *      }
  *  }
  */
-routes.post('/user/:user/phone/create', phoneService.create);
+// routes.post('/user/:user/phone/create', phoneService.create);
 
 /**
  * Edit Phone for User
@@ -135,13 +135,13 @@ routes.post('/user/:user/phone/create', phoneService.create);
  *      }
  *  }
  */
-routes.post('/user/:user/phone/edit/:id', phoneService.edit);
+// routes.post('/user/:user/phone/edit/:id', phoneService.edit);
 
 /**
  * Remove Phone for User
  *  user: User ID
  *  id: phone ID
  */
-routes.post('/user/:user/phone/remove/:id', phoneService.remove);
+// routes.post('/user/:user/phone/remove/:id', phoneService.remove);
 
 module.exports = routes;
