@@ -33,7 +33,7 @@ const getPhoneById =  async (id) => {
 
 // Mutate database inserting new address for user
 const createPhone = async(user,newPhone) => {
-    const newPhoneQuery = 'INSERT INTO address (user,number) VALUES ($1, $2) returning id';
+    const newPhoneQuery = 'INSERT INTO phone (user_id,number) VALUES ($1, $2) returning id';
     try {
         const { rows } = await db.query(newPhoneQuery,[user,newPhone.number]);
         return rows[0];
@@ -55,7 +55,7 @@ const removePhone = async(id) => {
 
 // Mutate database editing address that matches the respective ID
 const editPhone = async(id, phoneEditions) => {
-    const editPhoneQuery = 'UPDATE address SET number = $1 WHERE id = $2';
+    const editPhoneQuery = 'UPDATE phone SET number = $1 WHERE id = $2';
     try {
         const { rows } = await db.query(editPhoneQuery,[phoneEditions.number,id]);
         return rows;

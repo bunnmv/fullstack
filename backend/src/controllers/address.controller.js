@@ -32,7 +32,7 @@ const getAddressById =  async (id) => {
 
 // Mutate database inserting new address for user
 const createAddress = async(user,newAddress) => {
-    const newAddressQuery = 'INSERT INTO address (user,zip_code, city, state, street,number, neighborhood) VALUES ($1, $2, $3, $4,$5,$6,$7) returning id';
+    const newAddressQuery = 'INSERT INTO address (user_id,zip_code, city, state, street,number, neighborhood) VALUES ($1, $2, $3, $4,$5,$6,$7) returning id';
     try {
         const { rows } = await db.query(newAddressQuery,[user,newAddress.zip_code,newAddress.city,newAddress.state,newAddress.street,newAddress.number,newAddress.neighborhood]);
         return rows[0];
