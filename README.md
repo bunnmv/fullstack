@@ -46,3 +46,34 @@ ADDRESS
 
 PHONE
 - cellphone and/or phone
+
+# Database table commands
+
+    # create database naamed fullstack
+    create database fullstack;
+
+    # create user table (NOTE: "user" with "" because user is a reserved keyword for the users table inside postgres
+    
+    create table "user"
+    (
+        name       varchar(30)               not null,
+        email      varchar(30)               not null,
+        cpf        varchar(11)               not null,
+        id         serial                    not null
+            constraint user_pk
+                primary key,
+        date_added date default CURRENT_DATE not null,
+        birth_date date                      not null
+    );
+    
+    # alter user table to user postgress
+    alter table "user"
+        owner to postgres;
+    
+    # Set cpf as unique index in the whole user table
+    create unique index user_cpf_uindex
+        on "user" (cpf);
+
+    # Set id as unique index in the whole user table
+    create unique index user_id_uindex
+        on "user" (id);
