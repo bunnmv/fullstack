@@ -1,7 +1,6 @@
 const express = require('express');
-
-const routes = express.Router();
 const userService = require('./services/user.service');
+const routes = express.Router();
 
 /**
  * Rotas Usuários

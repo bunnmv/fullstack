@@ -5,7 +5,6 @@ const Model = require('../models/user.model');
 const UserService = {};
 
 UserService.getAll = async(req, res, next)  => {
-
     try {
         const list = Object.values(await userController.getAll());
         res.json(list);

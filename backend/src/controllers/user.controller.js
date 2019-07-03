@@ -1,3 +1,5 @@
+const db = require('../controllers/db.controller');
+
 //User SQL queries controller
 const UserController = {};
 
@@ -60,10 +62,9 @@ const getUserByCPF =  async (id) => {
 
 // Mutate database inserting new user
 const createUser = async(newUser) => {
-    const dateNow = new Date();
-    const newUserQuery = 'INSERT INTO "user" (name, email, birth_date, cpf, date_added) VALUES ($1, $2, $3, $4, $5) returning id';
+    const newUserQuery = 'INSERT INTO "user" (name, email, birth_date, cpf) VALUES ($1, $2, $3, $4) returning id';
     try {
-        const { rows } = await db.query(newUserQuery,[newUser.name,newUser.email,newUser.birth_date,newUser.cpf,dateNow]);
+        const { rows } = await db.query(newUserQuery,[newUser.name,newUser.email,newUser.birth_date,newUser.cpf]);
         return rows ;
     } catch(error) {
         throw error;
@@ -86,7 +87,7 @@ const editUser = async(id, userEditions) => {
 
     const editUserQuery = 'UPDATE "user" SET name = $1, email = $2, birth_date = $3, cpf = $4 WHERE id = $5';
     try {
-        const { rows } = await db.query(editUserQuery,[userEditions.username,userEditions.email,userEditions.birth_date,userEditions.cpf, id]);
+        const { rows } = await db.query(editUserQuery,[userEditions.name,userEditions.email,userEditions.birth_date,userEditions.cpf, id]);
         return rows ;
     } catch(error) {
         throw error;
