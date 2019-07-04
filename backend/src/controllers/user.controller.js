@@ -29,7 +29,50 @@ UserController.edit = async (id, userEditions) => {
 
 // Query all users from DB
 const getUsers =  async () => {
-    const findAllQuery = 'SELECT * FROM "user" ORDER BY date_added DESC';
+    // const findAllQuery = 'SELECT json_agg("user"), address.*, phone.* FROM "user" LEFT JOIN address ON ( "user".id = address.user_id) LEFT JOIN phone ON ( "user".id = phone.user_id) GROUP BY (address.id, phone.id,"user".date_added) ORDER BY "user".date_added DESC;';
+    const findAllQuery = 'select\n' +
+        '    json_build_object(\n' +
+        '        \'id\', u.id,\n' +
+        '        \'name\', u.name,\n' +
+        '        \'cpf\', u.cpf,\n' +
+        '        \'email\', u.email,\n' +
+        '        \'birth_date\', u.birth_date,\n' +
+        '        \'date_added\', u.date_added,\n' +
+        '        \'addresses\', addresses,\n' +
+        '        \'phones\',phones\n' +
+        '    )"user"\n' +
+        'from "user" u\n' +
+        'left join (\n' +
+        '    select\n' +
+        '        a.user_id,\n' +
+        '        json_agg(\n' +
+        '            json_build_object(\n' +
+        '                \'id\', a.id,\n' +
+        '                \'street\', a.zip_code,\n' +
+        '                \'number\', a.number,\n' +
+        '                \'neighborhood\', a.neighborhood,\n' +
+        '                \'city\', a.city,\n' +
+        '                \'state\', a.state,\n' +
+        '                \'zip_code\', a.zip_code\n' +
+        '                )\n' +
+        '            ) addresses\n' +
+        '    from\n' +
+        '        address a\n' +
+        '    group by user_id\n' +
+        ') a on u.id = a.user_id\n' +
+        'left join (\n' +
+        '    select\n' +
+        '        p.user_id,\n' +
+        '        json_agg(\n' +
+        '            json_build_object(\n' +
+        '                \'id\', p.id,\n' +
+        '                \'number\', p.number\n' +
+        '                )\n' +
+        '            ) phones\n' +
+        '    from\n' +
+        '        phone p\n' +
+        '    group by user_id\n' +
+        ') p on u.id = p.user_id;';
     try {
         const { rows } = await db.query(findAllQuery);
         return rows ;
@@ -40,7 +83,51 @@ const getUsers =  async () => {
 
 // Query  user from DB respective to the id passed as parameter
 const getUserById =  async (id) => {
-    const findUser = 'SELECT * FROM "user" WHERE id = $1';
+    // const findUser = 'SELECT * FROM "user" WHERE id = $1';
+    const findUser = 'select\n' +
+        '    json_build_object(\n' +
+        '        \'id\', u.id,\n' +
+        '        \'name\', u.name,\n' +
+        '        \'cpf\', u.cpf,\n' +
+        '        \'email\', u.email,\n' +
+        '        \'birth_date\', u.birth_date,\n' +
+        '        \'date_added\', u.date_added,\n' +
+        '        \'addresses\', addresses,\n' +
+        '        \'phones\',phones\n' +
+        '    )"user"\n' +
+        'from "user" u\n' +
+        'left join (\n' +
+        '    select\n' +
+        '        a.user_id,\n' +
+        '        json_agg(\n' +
+        '            json_build_object(\n' +
+        '                \'id\', a.id,\n' +
+        '                \'street\', a.zip_code,\n' +
+        '                \'number\', a.number,\n' +
+        '                \'neighborhood\', a.neighborhood,\n' +
+        '                \'city\', a.city,\n' +
+        '                \'state\', a.state,\n' +
+        '                \'zip_code\', a.zip_code\n' +
+        '                )\n' +
+        '            ) addresses\n' +
+        '    from\n' +
+        '        address a\n' +
+        '    group by user_id\n' +
+        ') a on u.id = a.user_id\n' +
+        'left join (\n' +
+        '    select\n' +
+        '        p.user_id,\n' +
+        '        json_agg(\n' +
+        '            json_build_object(\n' +
+        '                \'id\', p.id,\n' +
+        '                \'number\', p.number\n' +
+        '                )\n' +
+        '            ) phones\n' +
+        '    from\n' +
+        '        phone p\n' +
+        '    group by user_id\n' +
+        ') p on u.id = p.user_id\n' +
+        'WHERE u.id = $1';
     try {
         const { rows } = await db.query(findUser,[id]);
         return rows[0] ;
