@@ -29,50 +29,7 @@ UserController.edit = async (id, userEditions) => {
 
 // Query all users from DB
 const getUsers =  async () => { // User list does not require whole data
-    const findAllQuery = 'SELECT * FROM "user" ORDER BY "user".date_added DESC;';
-    // const findAllQuery = 'select\n' +
-    //     '    json_build_object(\n' +
-    //     '        \'id\', u.id,\n' +
-    //     '        \'name\', u.name,\n' +
-    //     '        \'cpf\', u.cpf,\n' +
-    //     '        \'email\', u.email,\n' +
-    //     '        \'birth_date\', u.birth_date,\n' +
-    //     '        \'date_added\', u.date_added,\n' +
-    //     '        \'addresses\', addresses,\n' +
-    //     '        \'phones\',phones\n' +
-    //     '    )"user"\n' +
-    //     'from "user" u\n' +
-    //     'left join (\n' +
-    //     '    select\n' +
-    //     '        a.user_id,\n' +
-    //     '        json_agg(\n' +
-    //     '            json_build_object(\n' +
-    //     '                \'id\', a.id,\n' +
-    //     '                \'street\', a.zip_code,\n' +
-    //     '                \'number\', a.number,\n' +
-    //     '                \'neighborhood\', a.neighborhood,\n' +
-    //     '                \'city\', a.city,\n' +
-    //     '                \'state\', a.state,\n' +
-    //     '                \'zip_code\', a.zip_code\n' +
-    //     '                )\n' +
-    //     '            ) addresses\n' +
-    //     '    from\n' +
-    //     '        address a\n' +
-    //     '    group by user_id\n' +
-    //     ') a on u.id = a.user_id\n' +
-    //     'left join (\n' +
-    //     '    select\n' +
-    //     '        p.user_id,\n' +
-    //     '        json_agg(\n' +
-    //     '            json_build_object(\n' +
-    //     '                \'id\', p.id,\n' +
-    //     '                \'number\', p.number\n' +
-    //     '                )\n' +
-    //     '            ) phones\n' +
-    //     '    from\n' +
-    //     '        phone p\n' +
-    //     '    group by user_id\n' +
-    //     ') p on u.id = p.user_id;';
+    const findAllQuery = 'SELECT * FROM "user" ORDER BY "user".date_added DESC;'
     try {
         const { rows } = await db.query(findAllQuery);
         return rows ;
