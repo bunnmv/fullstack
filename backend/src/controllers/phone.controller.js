@@ -22,7 +22,7 @@ PhoneController.edit = async (id, phoneEditions) => {
 
 // Query  address from DB respective to the id passed as parameter
 const getPhoneById =  async (id) => {
-    const findAddress = 'SELECT * FROM address WHERE id = $1';
+    const findAddress = 'SELECT * FROM phone WHERE id = $1';
     try {
         const { rows } = await db.query(findAddress,[id]);
         return rows[0] ;
