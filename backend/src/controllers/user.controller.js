@@ -74,8 +74,8 @@ const getUserById =  async (id) => {
         '        json_agg(\n' +
         '            json_build_object(\n' +
         '                \'id\', p.id,\n' +
-        '                \'mobile\', p.mobile,\n' +
-        '                \'home\',p.home\n' +
+        '                \'number\', p.number,\n' +
+        '                \'type\',p.type\n' +
         '                )\n' +
         '            ) phones\n' +
         '    from\n' +
