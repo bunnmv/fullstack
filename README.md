@@ -45,9 +45,20 @@ ADDRESS
 - State
 
 PHONE
-- cellphone and/or phone
+- number
+- type (HOME or MOBILE)
 
 # Database table commands
+
+- Connection data:
+
+        name: postgres@localhost,
+        host: localhost
+        port: 5432
+        user:postgres
+        password:postgres
+        database:postgres
+        URL:jdbc:postgresql://localhost:5432/postgres
 
     # create database named fullstack
     
