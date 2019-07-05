@@ -42,16 +42,13 @@ const getUsers =  async () => { // User list does not require whole data
 const getUserById =  async (id) => {
     // const findUser = 'SELECT * FROM "user" WHERE id = $1';
     const findUser = 'select\n' +
-        '    json_build_object(\n' +
-        '        \'id\', u.id,\n' +
-        '        \'name\', u.name,\n' +
-        '        \'cpf\', u.cpf,\n' +
-        '        \'email\', u.email,\n' +
-        '        \'birth_date\', u.birth_date,\n' +
-        '        \'date_added\', u.date_added,\n' +
-        '        \'addresses\', addresses,\n' +
-        '        \'phones\',phones\n' +
-        '    )"user"\n' +
+        '   json_agg(\n' +
+        '           json_build_object(\n' +
+        '                   \'user\', u,\n' +
+        '                   \'addresses\', addresses,\n' +
+        '                   \'phones\', phones\n' +
+        '               )\n' +
+        '       )"user"\n' +
         'from "user" u\n' +
         'left join (\n' +
         '    select\n' +
@@ -59,7 +56,7 @@ const getUserById =  async (id) => {
         '        json_agg(\n' +
         '            json_build_object(\n' +
         '                \'id\', a.id,\n' +
-        '                \'street\', a.zip_code,\n' +
+        '                \'street\', a.street,\n' +
         '                \'number\', a.number,\n' +
         '                \'neighborhood\', a.neighborhood,\n' +
         '                \'city\', a.city,\n' +
@@ -84,10 +81,10 @@ const getUserById =  async (id) => {
         '        phone p\n' +
         '    group by user_id\n' +
         ') p on u.id = p.user_id\n' +
-        'WHERE u.id = $1';
+        'WHERE u.id = $1;';
     try {
         const { rows } = await db.query(findUser,[id]);
-        return rows[0] ;
+        return rows[0].user[0] ;
     } catch(error) {
         throw error;
     }
@@ -109,7 +106,7 @@ const createUser = async(newUser) => {
     const newUserQuery = 'INSERT INTO "user" (name, email, birth_date, cpf) VALUES ($1, $2, $3, $4) returning id';
     try {
         const { rows } = await db.query(newUserQuery,[newUser.name,newUser.email,newUser.birth_date,newUser.cpf]);
-        return rows ;
+        return rows[0] ;
     } catch(error) {
         throw error;
     }

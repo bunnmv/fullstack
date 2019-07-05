@@ -41,8 +41,8 @@ UserService.create = async(req, res, next)  => {
             res.json({ success: false, errors: 'ALREADY_EXIST'});
         } else {
             if(Model.validate(newUser)) {
-                await userController.create(newUser);
-                res.json({ success: true });
+                const id = await userController.create(newUser);
+                res.json({ success: true , user: id});
             } else {
                 res.json({ success: false, errors: Model.errors(Model.validate.errors) });
             }
