@@ -76,7 +76,7 @@ PHONE
         create unique index user_cpf_uindex
             on "user" (cpf);
   
-  - Create phone table
+- Create phone table
     
         create table "user"
         (
