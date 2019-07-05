@@ -13,7 +13,7 @@ const properties = {
     },
     cpf: {
         type: "string",
-        minLength: 11
+        minLength: 14
     },
     birth_date: {
         format: "date"

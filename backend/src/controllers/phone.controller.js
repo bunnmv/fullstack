@@ -33,9 +33,9 @@ const getPhoneById =  async (id) => {
 
 // Mutate database inserting new address for user
 const createPhone = async(user,newPhone) => {
-    const newPhoneQuery = 'INSERT INTO phone (user_id,number) VALUES ($1, $2) returning id';
+    const newPhoneQuery = 'INSERT INTO phone (user_id,mobile,home) VALUES ($1, $2) returning id';
     try {
-        const { rows } = await db.query(newPhoneQuery,[user,newPhone.number]);
+        const { rows } = await db.query(newPhoneQuery,[user,newPhone.mobile,newPhone.home]);
         return rows[0];
     } catch(error) {
         throw error;

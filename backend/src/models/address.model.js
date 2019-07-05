@@ -21,7 +21,7 @@ const properties = {
     },
     zip_code: {
         type: "string",
-        minLength: 8
+        minLength: 9
     },
 
 };

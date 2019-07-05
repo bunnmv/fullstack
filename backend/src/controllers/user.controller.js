@@ -74,14 +74,15 @@ const getUserById =  async (id) => {
         '        json_agg(\n' +
         '            json_build_object(\n' +
         '                \'id\', p.id,\n' +
-        '                \'number\', p.number\n' +
+        '                \'mobile\', p.mobile,\n' +
+        '                \'home\',p.home\n' +
         '                )\n' +
         '            ) phones\n' +
         '    from\n' +
         '        phone p\n' +
         '    group by user_id\n' +
         ') p on u.id = p.user_id\n' +
-        'WHERE u.id = $1;';
+        'WHERE u.id = $1';
     try {
         const { rows } = await db.query(findUser,[id]);
         return rows[0].user[0] ;

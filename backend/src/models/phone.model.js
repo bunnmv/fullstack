@@ -3,15 +3,18 @@ const Ajv = require('ajv');
 const ajv = new Ajv({allErrors: true});
 
 const properties = {
-    number: {
+    mobile: {
         type: "string",
-        minLength: 8
+        minLength: 16
+    },
+    home: {
+        type: "string",
+        minLength: 15
     }
 };
 
 const schema = {
     type: "object",
-    required: [ "number"],
     properties: properties
 };
 
