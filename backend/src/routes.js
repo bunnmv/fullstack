@@ -59,6 +59,11 @@ routes.post('/user/edit/:id',userService.edit);
  * Address routes
  */
 
+// Get Address list
+routes.get('/user/:user/address/list', addressService.getAll);
+
+// Get Address
+routes.get('/user/:user/address/get/:id', addressService.get);
 
 /**
  * Create Address for User
@@ -109,7 +114,11 @@ routes.post('/user/:user/address/remove/:id', addressService.remove);
  * Phone routes
  */
 
+// Get Address list
+routes.get('/user/:user/phone/list', phoneService.getAll);
 
+// Get Address
+routes.get('/user/:user/phone/get/:id', phoneService.get);
 /**
  * Create Phone for User
  *  user: User ID

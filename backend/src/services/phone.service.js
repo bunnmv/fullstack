@@ -6,6 +6,30 @@ const Model = require('../models/phone.model');
 const PhoneService = {};
 
 
+PhoneService.getAll = async(req, res, next)  => {
+    try {
+        const user = parseInt(req.params.user);
+        const list = Object.values(await phoneController.getAll(user));
+        res.json(list);
+    } catch (e) {
+        res.sendStatus(400);
+    }
+};
+
+PhoneService.get = async(req, res, next)  => {
+    try {
+        const id = parseInt(req.params.id);
+        const user = await phoneController.get(id);
+        if(user) {
+            res.json(user);
+        } else {
+            res.sendStatus(404);
+        }
+    } catch (e) {
+        res.sendStatus(400);
+    }
+};
+
 PhoneService.create = async(req, res, next)  => {
     try {
         // data from request params

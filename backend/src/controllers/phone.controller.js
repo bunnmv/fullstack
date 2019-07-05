@@ -4,6 +4,10 @@ const db = require('../controllers/db.controller');
 const PhoneController = {};
 
 
+PhoneController.getAll = async (user) => {
+    return await getUsersPhones(user);
+};
+
 PhoneController.get = async (id) => {
     return await getPhoneById(id);
 };
@@ -20,11 +24,22 @@ PhoneController.edit = async (id, phoneEditions) => {
     return await editPhone(id, phoneEditions);
 };
 
+// Query  address from DB respective to the user passed as parameter
+const getUsersPhones =  async (id) => {
+    const findAllPhones = 'SELECT * FROM phone WHERE user_id = $1';
+    try {
+        const { rows } = await db.query(findAllPhones,[id]);
+        return rows;
+    } catch(error) {
+        throw error;
+    }
+};
+
 // Query  address from DB respective to the id passed as parameter
 const getPhoneById =  async (id) => {
-    const findAddress = 'SELECT * FROM phone WHERE id = $1';
+    const findPhone = 'SELECT * FROM phone WHERE id = $1';
     try {
-        const { rows } = await db.query(findAddress,[id]);
+        const { rows } = await db.query(findPhone,[id]);
         return rows[0] ;
     } catch(error) {
         throw error;

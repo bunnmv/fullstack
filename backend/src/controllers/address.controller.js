@@ -3,6 +3,10 @@ const db = require('../controllers/db.controller');
 //Address SQL queries controller
 const AddressController = {};
 
+AddressController.getAll = async (user) => {
+    return await getUserAddresses(user);
+};
+
 AddressController.get = async (id) => {
     return await getAddressById(id);
 };
@@ -17,6 +21,17 @@ AddressController.remove = async (id) => {
 
 AddressController.edit = async (id, addressEditions) => {
     return await editAddress(id, addressEditions);
+};
+
+// Query  address from DB respective to the user passed as parameter
+const getUserAddresses =  async (user) => {
+    const findAddress = 'SELECT * FROM address WHERE user_id = $1';
+    try {
+        const { rows } = await db.query(findAddress,[user]);
+        return rows ;
+    } catch(error) {
+        throw error;
+    }
 };
 
 // Query  address from DB respective to the id passed as parameter

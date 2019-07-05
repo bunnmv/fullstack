@@ -5,6 +5,29 @@ const userController = require('../controllers/user.controller');
 const Model = require('../models/address.model');
 const AddressService = {};
 
+AddressService.getAll = async(req, res, next)  => {
+    try {
+        const user = parseInt(req.params.user);
+        const list = Object.values(await addressController.getAll(user));
+        res.json(list);
+    } catch (e) {
+        res.sendStatus(400);
+    }
+};
+
+AddressService.get = async(req, res, next)  => {
+    try {
+        const id = parseInt(req.params.id);
+        const user = await addressController.get(id);
+        if(user) {
+            res.json(user);
+        } else {
+            res.sendStatus(404);
+        }
+    } catch (e) {
+        res.sendStatus(400);
+    }
+};
 
 AddressService.create = async(req, res, next)  => {
     try {
