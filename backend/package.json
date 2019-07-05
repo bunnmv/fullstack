@@ -4,7 +4,8 @@
   "description": "Node.js backend for user CRUD application",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "dev": "nodemon src/server.js",
+    "start": "node src/server.js"
   },
   "repository": {
     "type": "git",
@@ -20,5 +21,14 @@
   "bugs": {
     "url": "https://github.com/bunnmv/fullstack/issues"
   },
-  "homepage": "https://github.com/bunnmv/fullstack#readme"
+  "homepage": "https://github.com/bunnmv/fullstack#readme",
+  "dependencies": {
+    "ajv": "^6.10.0",
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "pg": "^7.11.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.1"
+  }
 }

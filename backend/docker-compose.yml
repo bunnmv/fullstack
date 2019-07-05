@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  db:
+    image: postgres
+    ports:
+      - "5432:5432" # specify port forewarding
+  app:
+    env_file:
+      - env
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/usr/src/
+    working_dir: /usr/src/
+    command: npm run start
+    links:
+      - db
+    ports:
+      - "4000:4000" # specify port forewarding
+    depends_on:
+      - db
