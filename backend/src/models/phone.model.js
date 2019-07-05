@@ -5,7 +5,7 @@ const ajv = new Ajv({allErrors: true});
 const properties = {
     number: {
         type: "string",
-        minLength: 16
+        minLength: 15
     },
     type: {
         type: "string",
