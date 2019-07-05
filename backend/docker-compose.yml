@@ -14,7 +14,7 @@ services:
     volumes:
       - .:/usr/src/
     working_dir: /usr/src/
-    command: npm run dev
+    command: npm run start
     links:
       - db
     ports:

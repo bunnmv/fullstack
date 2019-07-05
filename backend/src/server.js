@@ -17,13 +17,12 @@ app.use(express.urlencoded({extended:true}));
 
 app.use(require("./routes"));
 
-// For future front-end static files
-// Build files from React.js
-// app.use(express.static(path.join(__dirname, 'build')));
-//
-// app.get('/*', function(req, res) {
-//     res.sendFile(path.join(__dirname, 'build', 'index.html'));
-// });
+
+app.use(express.static(path.join(__dirname, 'build')));
+
+app.get('/*', function(req, res) {
+    res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
 
 // server.listen(process.env.SERVER_PORT || 4000);
 
