@@ -1,6 +1,6 @@
 # fullstack
 
-Fully functional user opperations CRUD application devellopped on Node.js, React.js and PostgreSQL while being dockkerized with docker compose. React.js is built with react-creat-app and the static files are served on Node.js while communicating with a database service that uses the Postgress image.
+Fully functional user operations CRUD application developed on Node.js, React.js and PostgreSQL and docked with docker compose. React.js is built with react-creat-app and the static files are served on Node.js while communicating with a database service that uses the Postgress image.
 
 # Installation
 
@@ -49,31 +49,77 @@ PHONE
 
 # Database table commands
 
-    # create database naamed fullstack
+    # create database named fullstack
+    
     create database fullstack;
 
-    # create user table (NOTE: "user" with "" because user is a reserved keyword for the users table inside postgres
+- Create user table (NOTE: "user" with "" because user is a reserved keyword for the users table inside postgres
     
-    create table "user"
-    (
-        name       varchar(30)               not null,
-        email      varchar(30)               not null,
-        cpf        varchar(11)               not null,
-        id         serial                    not null
-            constraint user_pk
-                primary key,
-        date_added date default CURRENT_DATE not null,
-        birth_date date                      not null
-    );
-    
-    # alter user table to user postgress
-    alter table "user"
-        owner to postgres;
-    
-    # Set cpf as unique index in the whole user table
-    create unique index user_cpf_uindex
-        on "user" (cpf);
+        create table "user"
+        (
+            name       varchar(30)               not null,
+            email      varchar(30)               not null,
+            cpf        varchar(14)               not null,
+            id         serial                    not null
+                constraint user_pk
+                    primary key,
+            date_added date default CURRENT_DATE not null,
+            birth_date date                      not null
+        );
 
-    # Set id as unique index in the whole user table
-    create unique index user_id_uindex
-        on "user" (id);
+        alter table "user"
+            owner to postgres;
+
+        create unique index user_id_uindex
+            on "user" (id);
+
+        create unique index user_cpf_uindex
+            on "user" (cpf);
+  
+  - Create phone table
+    
+        create table "user"
+        (
+            name       varchar(30)               not null,
+            email      varchar(30)               not null,
+            cpf        varchar(14)               not null,
+            id         serial                    not null
+                constraint user_pk
+                    primary key,
+            date_added date default CURRENT_DATE not null,
+            birth_date date                      not null
+        );
+
+        alter table "user"
+            owner to postgres;
+
+        create unique index user_id_uindex
+            on "user" (id);
+
+        create unique index user_cpf_uindex
+            on "user" (cpf);
+            
+- Create address table
+
+        create table address
+        (
+            id           serial      not null
+                constraint address_pk
+                    primary key,
+            street       varchar(50) not null,
+            number       varchar(10) not null,
+            zip_code     varchar(9)  not null,
+            state        varchar(20) not null,
+            neighborhood varchar(50) not null,
+            city         varchar(50) not null,
+            user_id      integer     not null
+                constraint address_user_id_fk
+                    references "user"
+                    on delete cascade
+        );
+
+        alter table address
+            owner to postgres;
+
+        create unique index address_id_uindex
+            on address (id);
