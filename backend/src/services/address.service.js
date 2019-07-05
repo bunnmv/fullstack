@@ -18,9 +18,9 @@ AddressService.getAll = async(req, res, next)  => {
 AddressService.get = async(req, res, next)  => {
     try {
         const id = parseInt(req.params.id);
-        const user = await addressController.get(id);
-        if(user) {
-            res.json(user);
+        const address = await addressController.get(id);
+        if(address) {
+            res.json(address);
         } else {
             res.sendStatus(404);
         }

@@ -114,10 +114,10 @@ routes.post('/user/:user/address/remove/:id', addressService.remove);
  * Phone routes
  */
 
-// Get Address list
+// Get Phone list
 routes.get('/user/:user/phone/list', phoneService.getAll);
 
-// Get Address
+// Get Phone
 routes.get('/user/:user/phone/get/:id', phoneService.get);
 /**
  * Create Phone for User

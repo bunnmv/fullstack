@@ -26,7 +26,7 @@ PhoneController.edit = async (id, phoneEditions) => {
 
 // Query  address from DB respective to the user passed as parameter
 const getUsersPhones =  async (id) => {
-    const findAllPhones = 'SELECT * FROM phone WHERE user_id = $1';
+    const findAllPhones = 'SELECT * FROM phone WHERE user_id = $1 ORDER BY id DESC';
     try {
         const { rows } = await db.query(findAllPhones,[id]);
         return rows;

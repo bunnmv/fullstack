@@ -25,7 +25,7 @@ AddressController.edit = async (id, addressEditions) => {
 
 // Query  address from DB respective to the user passed as parameter
 const getUserAddresses =  async (user) => {
-    const findAddress = 'SELECT * FROM address WHERE user_id = $1';
+    const findAddress = 'SELECT * FROM address WHERE user_id = $1 ORDER BY id DESC';
     try {
         const { rows } = await db.query(findAddress,[user]);
         return rows ;

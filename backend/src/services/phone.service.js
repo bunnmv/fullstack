@@ -19,9 +19,9 @@ PhoneService.getAll = async(req, res, next)  => {
 PhoneService.get = async(req, res, next)  => {
     try {
         const id = parseInt(req.params.id);
-        const user = await phoneController.get(id);
-        if(user) {
-            res.json(user);
+        const phone = await phoneController.get(id);
+        if(phone) {
+            res.json(phone);
         } else {
             res.sendStatus(404);
         }
