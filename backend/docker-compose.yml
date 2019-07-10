@@ -8,8 +8,9 @@ services:
     environment:
       POSTGRES_USER: intelbras
       POSTGRES_PASSWORD: intelbras
-    volumes:
-      - ./init_sql:/docker-entrypoint-initdb.d/
+    volumes: # volumes copy directories from host to docker
+#      - ./init_sql:/docker-entrypoint-initdb.d/
+      - ./init-user-db:/docker-entrypoint-initdb.d/
       - ./data/postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432" # specify port forewarding
