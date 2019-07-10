@@ -1,7 +1,7 @@
 version: '3'
 
 #run  sudo rm -rf ./data/postgres/ to make changes on db entrypoint
-
+# if not working run docker-compose rm -fv db to remove the db image
 services:
   db:
     image: postgres
@@ -9,7 +9,6 @@ services:
       POSTGRES_USER: intelbras
       POSTGRES_PASSWORD: intelbras
     volumes:
-#      - ./init-user-db:/docker-entrypoint-initdb.d/
       - ./init_sql:/docker-entrypoint-initdb.d/
       - ./data/postgres:/var/lib/postgresql/data
     ports:
@@ -23,7 +22,8 @@ services:
     volumes:
       - .:/usr/src/
     working_dir: /usr/src/
-    command: npm run start
+#    command: npm run start
+    command: bash -c 'while !</dev/tcp/db/5432; do sleep 1; done; npm start' #test if db is up before running node
     links:
       - db
     ports:
