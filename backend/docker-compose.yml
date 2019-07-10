@@ -1,8 +1,17 @@
 version: '3'
 
+#run  sudo rm -rf ./data/postgres/ to make changes on db entrypoint
+
 services:
   db:
     image: postgres
+    environment:
+      POSTGRES_USER: intelbras
+      POSTGRES_PASSWORD: intelbras
+    volumes:
+#      - ./init-user-db:/docker-entrypoint-initdb.d/
+      - ./init_sql:/docker-entrypoint-initdb.d/
+      - ./data/postgres:/var/lib/postgresql/data
     ports:
       - "5432:5432" # specify port forewarding
   app:
