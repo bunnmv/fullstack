@@ -18,7 +18,11 @@ Clone, or download the project directory.
         ├── services              # Express services and midlewares for the REST API
         └── routes                # Express routes that matches user requests to API calls
         
-Make sure you have Docker and Docker Compose installed. After, move to the project backed directory (where the docker-compose.yml is) and run docker compose up. That's it! You should see in the console that two docker containers are running, both the backend and db. 
+Make sure you have Docker and Docker Compose installed. After, move to the project backed directory (where the docker-compose.yml is) and run docker-compose up. That's it! You should see in the console that two docker containers are running, both the backend and db. 
+
+`cd backend`
+
+`docker-compose up`
 
 - Node.js       -> PORT      - 4000
 - Postgress SQL -> PORT      - 5432
