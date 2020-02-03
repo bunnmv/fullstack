@@ -7,6 +7,7 @@ const db = require('./controllers/db.controller');
 
 //middleware to enable CORS. Allow other domains to make requests
 app.use(cors());
+app.options('*', cors());
 
 const path = require('path');
 

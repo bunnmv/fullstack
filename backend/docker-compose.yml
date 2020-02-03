@@ -1,8 +1,21 @@
 version: '3'
 
+# run  sudo rm -rf ./data/postgres/ to make changes on db entrypoint
+# if the previous does not work run docker-compose rm -fv db to remove the db image
 services:
   db:
     image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: fullstack_user
+      POSTGRES_DB: postgres #changes here require changes on .env file for Node.js
+      POSTGRES_PASSWORD: fullstack
+    volumes: # volumes copy directories from host to docker
+      #      - ./init_sql:/docker-entrypoint-initdb.d/ #This file generetes all tables for user $POSTGRES_USER
+      - ./init-user-db:/docker-entrypoint-initdb.d/ #This allows creating other users ans tables
+      - ./data/postgres:/var/lib/postgresql/data
+    networks:
+      - backend
     ports:
       - "5432:5432" # specify port forewarding
   app:
@@ -11,13 +24,36 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    volumes:
-      - .:/usr/src/
-    working_dir: /usr/src/
-    command: npm run start
-    links:
-      - db
+    command: bash -c 'npm run test-db; npm start' #test if db is up before running node
+    networks:
+      - backend
     ports:
       - "4000:4000" # specify port forewarding
     depends_on:
       - db
+
+networks:
+  backend:
+
+volumes:
+  data:
+
+
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+
+#    REMOVE Create table  if using pg_dump restore
+#    ESCAPE $ and other special characters on hashed passwords on bash file
+
+
+#    Useful commands to force rebuild
+#    docker-compose rm -f
+#    docker-compose build --no-cache
+#    docker-compose up
+
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
+#-------- !!!!!!!!!  READ ME -------- !!!!!!!!!
