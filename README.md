@@ -52,89 +52,23 @@ PHONE
 - number
 - type (HOME or MOBILE)
 
-# Database table commands
+# PostgreSQL init-db
+   
+Inside the docker image for postgress there is a script that runs automatically upon first initialization of the container, or on every initiazation that is observed that the database is empty. For our benefit it was used this script to run another script that creates the tables automatically from a .sql pg-dump file. Hence, on the first try it will ran automatically but to update changes on the tables and initialization values it will be required that the script is ran again. In order to do so, it is required that the folder "data" is removed. This folder is a volume created on the docker image that matches the posgres db folder inside the docker, hence, removing it on the host, ( OS ) will also remove it inside the docker, which will in turn run the scritp on the first initialization since the db is empty.
 
-- Connection data:
+A few useful commands are: 
 
-        name: postgres@localhost,
-        host: localhost
-        port: 5432
-        user:postgres
-        password:postgres
-        database:postgres
-        URL:jdbc:postgresql://localhost:5432/postgres
+`sudo rm -rf ./data/postgres/` # to remove the postgres folder in the host
 
-    # create database named fullstack
-    
-    create database fullstack;
+`docker-compose rm -f` # to remove the docker images
 
-- Create user table (NOTE: "user" with "" because user is a reserved keyword for the users table inside postgres
-    
-        create table "user"
-        (
-            name       varchar(30)               not null,
-            email      varchar(30)               not null,
-            cpf        varchar(14)               not null,
-            id         serial                    not null
-                constraint user_pk
-                    primary key,
-            date_added date default CURRENT_DATE not null,
-            birth_date date                      not null
-        );
+# Node.js
 
-        alter table "user"
-            owner to postgres;
+The image copies the files from the host working directory and install the required dependencies based on the package.json file. Then, it runs an script that waits for the db to be prepared for connections before starting the server, the "wait-db.js" file. 
 
-        create unique index user_id_uindex
-            on "user" (id);
+A few useful commands are: 
 
-        create unique index user_cpf_uindex
-            on "user" (cpf);
-  
-- Create phone table
-    
-        create table "user"
-        (
-            name       varchar(30)               not null,
-            email      varchar(30)               not null,
-            cpf        varchar(14)               not null,
-            id         serial                    not null
-                constraint user_pk
-                    primary key,
-            date_added date default CURRENT_DATE not null,
-            birth_date date                      not null
-        );
+`docker-compose rm -f` # to remove the postgres folder in the host
 
-        alter table "user"
-            owner to postgres;
+`docker-compose build --no-cache` # to build the images without cached data. Hence, it forces a new build from scrath which takes longer but makes sure that any modification on the files are correctly updated to the images.
 
-        create unique index user_id_uindex
-            on "user" (id);
-
-        create unique index user_cpf_uindex
-            on "user" (cpf);
-            
-- Create address table
-
-        create table address
-        (
-            id           serial      not null
-                constraint address_pk
-                    primary key,
-            street       varchar(50) not null,
-            number       varchar(10) not null,
-            zip_code     varchar(9)  not null,
-            state        varchar(20) not null,
-            neighborhood varchar(50) not null,
-            city         varchar(50) not null,
-            user_id      integer     not null
-                constraint address_user_id_fk
-                    references "user"
-                    on delete cascade
-        );
-
-        alter table address
-            owner to postgres;
-
-        create unique index address_id_uindex
-            on address (id);
