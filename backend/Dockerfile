@@ -17,4 +17,4 @@ RUN npm install
 # Get all the code needed to run the app from host to workdir
 COPY . .
 
-EXPOSE 3000
+#EXPOSE 3000
